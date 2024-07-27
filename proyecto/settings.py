@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-mkv@4cs#6y5k20skx+b9qww0%zn6njxro56)2_i-^#r&#t%wq7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1']
 
 
 # Application definition
@@ -71,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'proyecto.wsgi.application'
+WSGI_APPLICATION = 'proyecto.wsgi.app'
 
 
 # Database
@@ -125,11 +125,14 @@ STATIC_URL = 'static/'
 
 STATIC_DIRS = [os.path.join(BASE_DIR, 'base/static')]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+if os.environ.get("VERCEL"):
+
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
